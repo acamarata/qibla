@@ -105,6 +105,10 @@ Full reference available on the [GitHub Wiki](https://github.com/acamarata/qibla
 - [nrel-spa](https://github.com/acamarata/nrel-spa) — NREL Solar Position Algorithm
 - [moon-sighting](https://github.com/acamarata/moon-sighting) — Lunar crescent visibility
 
+## Acknowledgments
+
+Ka'bah coordinates verified against published GPS surveys and cross-checked with satellite imagery. The forward azimuth formula follows the standard spherical trigonometry derivation used in aviation and geodesy.
+
 ## License
 
 [MIT](LICENSE)
