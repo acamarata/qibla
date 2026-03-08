@@ -34,5 +34,5 @@ jobs:
             echo "No wiki changes to commit"
           else
             git commit -m "Sync wiki from repo"
-            git push
+            git push origin HEAD:master
           fi
