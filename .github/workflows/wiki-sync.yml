@@ -1,0 +1,38 @@
+name: Sync Wiki
+
+on:
+  push:
+    branches: [main]
+    paths: ['.wiki/**']
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Checkout wiki
+        run: |
+          git clone "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.wiki.git" .wiki-remote \
+          || (mkdir -p .wiki-remote \
+              && cd .wiki-remote \
+              && git init \
+              && git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.wiki.git")
+
+      - name: Sync wiki pages
+        run: |
+          cp .wiki/*.md .wiki-remote/
+          cd .wiki-remote
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No wiki changes to commit"
+          else
+            git commit -m "Sync wiki from repo"
+            git push
+          fi

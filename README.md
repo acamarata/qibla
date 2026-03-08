@@ -1,6 +1,6 @@
-# qibla
+# @acamarata/qibla
 
-[![npm version](https://img.shields.io/npm/v/qibla.svg)](https://www.npmjs.com/package/qibla)
+[![npm version](https://img.shields.io/npm/v/%40acamarata%2Fqibla.svg)](https://www.npmjs.com/package/%40acamarata%2Fqibla)
 [![CI](https://github.com/acamarata/qibla/actions/workflows/ci.yml/badge.svg)](https://github.com/acamarata/qibla/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -9,7 +9,7 @@ Qibla direction, great-circle path, and haversine distance. Pure math, zero depe
 ## Installation
 
 ```bash
-npm install qibla
+npm install @acamarata/qibla
 ```
 
 ## Quick Start
@@ -21,7 +21,7 @@ import {
   distanceKm,
   KAABA_LAT,
   KAABA_LNG,
-} from "qibla";
+} from "@acamarata/qibla";
 
 // Bearing from New York to the Ka'bah
 const bearing = qiblaAngle(40.7128, -74.006);
@@ -73,6 +73,12 @@ Haversine distance between two points in kilometers (spherical Earth approximati
 | `KAABA_LNG`       | 39.826150 | Ka'bah center longitude (degrees east) |
 | `EARTH_RADIUS_KM` | 6371      | WGS-84 volumetric mean radius          |
 
+## Architecture
+
+All calculations use the forward azimuth formula from spherical trigonometry. Great-circle paths use Slerp (spherical linear interpolation). Distance uses the haversine formula. The Ka'bah coordinates are fixed constants from verified GPS data.
+
+See [Architecture](https://github.com/acamarata/qibla/wiki/Architecture) for algorithm details.
+
 ## Compatibility
 
 Node.js 20+. Works in browsers and all major bundlers (Webpack, Vite, Rollup, esbuild). Ships as dual CJS/ESM with full TypeScript definitions.
@@ -80,15 +86,24 @@ Node.js 20+. Works in browsers and all major bundlers (Webpack, Vite, Rollup, es
 ## TypeScript
 
 ```typescript
-import { qiblaAngle, CompassAbbr, CompassName } from "qibla";
+import { qiblaAngle, CompassAbbr, CompassName } from "@acamarata/qibla";
 
 const bearing: number = qiblaAngle(40.7128, -74.006);
 ```
 
+## Documentation
+
+Full reference available on the [GitHub Wiki](https://github.com/acamarata/qibla/wiki):
+
+- [Home](https://github.com/acamarata/qibla/wiki/Home) — Overview and quick start
+- [API Reference](https://github.com/acamarata/qibla/wiki/API-Reference) — Full function and constant reference
+- [Architecture](https://github.com/acamarata/qibla/wiki/Architecture) — Algorithm design, spherical trigonometry, Slerp implementation
+
 ## Related
 
-- [pray-calc](https://github.com/acamarata/pray-calc) - Islamic prayer times calculator
-- [nrel-spa](https://github.com/acamarata/nrel-spa) - NREL Solar Position Algorithm
+- [pray-calc](https://github.com/acamarata/pray-calc) — Islamic prayer times calculator
+- [nrel-spa](https://github.com/acamarata/nrel-spa) — NREL Solar Position Algorithm
+- [moon-sighting](https://github.com/acamarata/moon-sighting) — Lunar crescent visibility
 
 ## License
 

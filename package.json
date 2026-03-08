@@ -24,7 +24,10 @@
     "dist/index.cjs",
     "dist/index.mjs",
     "dist/index.d.ts",
-    "dist/index.d.mts"
+    "dist/index.d.mts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"
