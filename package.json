@@ -1,5 +1,5 @@
 {
-  "name": "qibla",
+  "name": "@acamarata/qibla",
   "version": "1.0.0",
   "description": "Qibla direction, great-circle path, and haversine distance. Pure math, zero dependencies.",
   "author": "Aric Camarata",
