@@ -21,7 +21,7 @@ where φ₁, λ₁ is the observer and φ₂, λ₂ is the Ka'bah.
 | `lat` | `number` | Observer latitude in decimal degrees. Valid range: −90 to 90.    |
 | `lng` | `number` | Observer longitude in decimal degrees. Valid range: −180 to 180. |
 
-**Returns:** `number` — Bearing in degrees clockwise from true north. Range: [0, 360).
+**Returns:** `number`: Bearing in degrees clockwise from true north. Range: [0, 360).
 
 **Throws:** `RangeError` if either coordinate is out of bounds.
 
@@ -47,7 +47,7 @@ Maps the bearing to one of eight 45° sectors, selecting the nearest cardinal or
 | --------- | -------- | --------------------------- |
 | `bearing` | `number` | Bearing in degrees (0–360). |
 
-**Returns:** `CompassAbbr` — One of: `N`, `NE`, `E`, `SE`, `S`, `SW`, `W`, `NW`.
+**Returns:** `CompassAbbr`: One of: `N`, `NE`, `E`, `SE`, `S`, `SW`, `W`, `NW`.
 
 ```typescript
 import { compassDir } from "@acamarata/qibla";
@@ -70,7 +70,7 @@ Returns the full compass direction name for a bearing.
 | --------- | -------- | --------------------------- |
 | `bearing` | `number` | Bearing in degrees (0–360). |
 
-**Returns:** `CompassName` — One of: `North`, `Northeast`, `East`, `Southeast`, `South`, `Southwest`, `West`, `Northwest`.
+**Returns:** `CompassName`: One of: `North`, `Northeast`, `East`, `Southeast`, `South`, `Southwest`, `West`, `Northwest`.
 
 ```typescript
 import { compassName } from "@acamarata/qibla";
@@ -90,11 +90,11 @@ Useful for drawing the Qibla direction line on a map. Returns `steps + 1` points
 
 | Name    | Type     | Default | Description                                          |
 | ------- | -------- | ------- | ---------------------------------------------------- |
-| `lat`   | `number` | —       | Observer latitude in decimal degrees (−90 to 90).    |
-| `lng`   | `number` | —       | Observer longitude in decimal degrees (−180 to 180). |
+| `lat`   | `number` |:       | Observer latitude in decimal degrees (−90 to 90).    |
+| `lng`   | `number` |:       | Observer longitude in decimal degrees (−180 to 180). |
 | `steps` | `number` | `120`   | Number of segments. Result has `steps + 1` points.   |
 
-**Returns:** `[number, number][]` — Array of `[latitude, longitude]` pairs in degrees.
+**Returns:** `[number, number][]`: Array of `[latitude, longitude]` pairs in degrees.
 
 **Throws:** `RangeError` if coordinates are out of bounds.
 
@@ -125,7 +125,7 @@ Uses the haversine formula with a spherical Earth (R = 6,371 km, WGS-84 volumetr
 | `lat2` | `number` | Second point latitude in decimal degrees.  |
 | `lng2` | `number` | Second point longitude in decimal degrees. |
 
-**Returns:** `number` — Distance in kilometers.
+**Returns:** `number`: Distance in kilometers.
 
 ```typescript
 import { distanceKm, KAABA_LAT, KAABA_LNG } from "@acamarata/qibla";

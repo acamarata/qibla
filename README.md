@@ -95,15 +95,15 @@ const bearing: number = qiblaAngle(40.7128, -74.006);
 
 Full reference available on the [GitHub Wiki](https://github.com/acamarata/qibla/wiki):
 
-- [Home](https://github.com/acamarata/qibla/wiki/Home) — Overview and quick start
-- [API Reference](https://github.com/acamarata/qibla/wiki/API-Reference) — Full function and constant reference
-- [Architecture](https://github.com/acamarata/qibla/wiki/Architecture) — Algorithm design, spherical trigonometry, Slerp implementation
+- [Home](https://github.com/acamarata/qibla/wiki/Home): Overview and quick start
+- [API Reference](https://github.com/acamarata/qibla/wiki/API-Reference): Full function and constant reference
+- [Architecture](https://github.com/acamarata/qibla/wiki/Architecture): Algorithm design, spherical trigonometry, Slerp implementation
 
 ## Related
 
-- [pray-calc](https://github.com/acamarata/pray-calc) — Islamic prayer times calculator
-- [nrel-spa](https://github.com/acamarata/nrel-spa) — NREL Solar Position Algorithm
-- [moon-sighting](https://github.com/acamarata/moon-sighting) — Lunar crescent visibility
+- [pray-calc](https://github.com/acamarata/pray-calc): Islamic prayer times calculator
+- [nrel-spa](https://github.com/acamarata/nrel-spa): NREL Solar Position Algorithm
+- [moon-sighting](https://github.com/acamarata/moon-sighting): Lunar crescent visibility
 
 ## Acknowledgments
 
