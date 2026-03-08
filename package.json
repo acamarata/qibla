@@ -4,18 +4,17 @@
   "description": "Qibla direction, great-circle path, and haversine distance. Pure math, zero dependencies.",
   "author": "Aric Camarata",
   "license": "MIT",
-  "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
       }
     }
@@ -25,7 +24,7 @@
     "dist/index.cjs",
     "dist/index.mjs",
     "dist/index.d.ts",
-    "dist/index.d.cts"
+    "dist/index.d.mts"
   ],
   "engines": {
     "node": ">=20"
