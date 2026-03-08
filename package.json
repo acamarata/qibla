@@ -1,0 +1,80 @@
+{
+  "name": "qibla",
+  "version": "1.0.0",
+  "description": "Qibla direction, great-circle path, and haversine distance. Pure math, zero dependencies.",
+  "author": "Aric Camarata",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist/index.cjs",
+    "dist/index.mjs",
+    "dist/index.d.ts",
+    "dist/index.d.cts"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "pretest": "tsup",
+    "test": "node --test test.mjs && node --test test-cjs.cjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepublishOnly": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acamarata/qibla.git"
+  },
+  "homepage": "https://github.com/acamarata/qibla#readme",
+  "bugs": {
+    "url": "https://github.com/acamarata/qibla/issues"
+  },
+  "keywords": [
+    "qibla",
+    "kaaba",
+    "mecca",
+    "compass",
+    "bearing",
+    "direction",
+    "great-circle",
+    "haversine",
+    "distance",
+    "geodesic",
+    "islamic",
+    "prayer",
+    "geolocation",
+    "spherical-trigonometry"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.27.0",
+    "prettier": "^3.5.3",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1"
+  }
+}
