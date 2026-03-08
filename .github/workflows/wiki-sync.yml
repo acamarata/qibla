@@ -3,7 +3,7 @@ name: Sync Wiki
 on:
   push:
     branches: [main]
-    paths: ['.wiki/**']
+    paths: [".wiki/**"]
 
 permissions:
   contents: write

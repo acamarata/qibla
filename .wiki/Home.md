@@ -24,10 +24,16 @@ npm install @acamarata/qibla
 ```
 
 ```typescript
-import { qiblaAngle, compassDir, distanceKm, KAABA_LAT, KAABA_LNG } from '@acamarata/qibla';
+import {
+  qiblaAngle,
+  compassDir,
+  distanceKm,
+  KAABA_LAT,
+  KAABA_LNG,
+} from "@acamarata/qibla";
 
 const bearing = qiblaAngle(40.7128, -74.006); // New York
-console.log(bearing);          // ~58.48
+console.log(bearing); // ~58.48
 console.log(compassDir(bearing)); // "NE"
 
 const km = distanceKm(40.7128, -74.006, KAABA_LAT, KAABA_LNG);
