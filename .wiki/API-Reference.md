@@ -90,8 +90,8 @@ Useful for drawing the Qibla direction line on a map. Returns `steps + 1` points
 
 | Name    | Type     | Default | Description                                          |
 | ------- | -------- | ------- | ---------------------------------------------------- |
-| `lat`   | `number` |:       | Observer latitude in decimal degrees (−90 to 90).    |
-| `lng`   | `number` |:       | Observer longitude in decimal degrees (−180 to 180). |
+| `lat`   | `number` | :       | Observer latitude in decimal degrees (−90 to 90).    |
+| `lng`   | `number` | :       | Observer longitude in decimal degrees (−180 to 180). |
 | `steps` | `number` | `120`   | Number of segments. Result has `steps + 1` points.   |
 
 **Returns:** `[number, number][]`: Array of `[latitude, longitude]` pairs in degrees.
