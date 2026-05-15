@@ -10,14 +10,17 @@
  * @module
  */
 
-/** Latitude of the Ka'bah center, Masjid al-Haram, Mecca (degrees north). */
-export const KAABA_LAT = 21.422511;
+export * from "./types.js";
 
-/** Longitude of the Ka'bah center, Masjid al-Haram, Mecca (degrees east). */
-export const KAABA_LNG = 39.82615;
-
-/** Mean radius of the Earth in kilometers (WGS-84 volumetric mean). */
-export const EARTH_RADIUS_KM = 6371;
+import {
+  KAABA_LAT,
+  KAABA_LNG,
+  EARTH_RADIUS_KM,
+  COMPASS_ABBR,
+  COMPASS_NAMES,
+  type CompassAbbr,
+  type CompassName,
+} from "./types.js";
 
 const DEG = Math.PI / 180;
 
@@ -50,26 +53,7 @@ export function qiblaAngle(lat: number, lng: number): number {
   return (Math.atan2(y, x) / DEG + 360) % 360;
 }
 
-/** Eight-point compass abbreviations. */
-const COMPASS_ABBR = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] as const;
 
-/** Eight-point compass full names. */
-const COMPASS_NAMES = [
-  "North",
-  "Northeast",
-  "East",
-  "Southeast",
-  "South",
-  "Southwest",
-  "West",
-  "Northwest",
-] as const;
-
-/** Compass abbreviation type. */
-export type CompassAbbr = (typeof COMPASS_ABBR)[number];
-
-/** Compass full name type. */
-export type CompassName = (typeof COMPASS_NAMES)[number];
 
 /**
  * Eight-point compass abbreviation for a bearing.
