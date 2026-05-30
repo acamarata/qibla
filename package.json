@@ -69,6 +69,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@acamarata/eslint-config": "^0.1.0",
+    "@acamarata/prettier-config": "^0.1.0",
+    "@acamarata/tsconfig": "^0.1.0",
     "@eslint/js": "^9.27.0",
     "@types/node": "^22.15.3",
     "eslint": "^9.27.0",
@@ -78,5 +81,6 @@
     "typescript-eslint": "^8.32.1"
   },
   "type": "module",
-  "packageManager": "pnpm@10.11.1"
+  "packageManager": "pnpm@10.11.1",
+  "prettier": "@acamarata/prettier-config"
 }

@@ -60,7 +60,9 @@ export function qiblaAngle(lat: number, lng: number): number {
  * @returns Two-letter compass abbreviation (N, NE, E, SE, S, SW, W, NW).
  */
 export function compassDir(bearing: number): CompassAbbr {
-  return COMPASS_ABBR[Math.round(bearing / 45) % 8];
+  // Non-null assertion: index is always 0-7 (Math.round(bearing/45) % 8), which is within COMPASS_ABBR bounds.
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return COMPASS_ABBR[Math.round(bearing / 45) % 8]!;
 }
 
 /**
@@ -70,7 +72,9 @@ export function compassDir(bearing: number): CompassAbbr {
  * @returns Full direction name (North, Northeast, etc.).
  */
 export function compassName(bearing: number): CompassName {
-  return COMPASS_NAMES[Math.round(bearing / 45) % 8];
+  // Non-null assertion: index is always 0-7 (Math.round(bearing/45) % 8), which is within COMPASS_NAMES bounds.
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return COMPASS_NAMES[Math.round(bearing / 45) % 8]!;
 }
 
 /**
