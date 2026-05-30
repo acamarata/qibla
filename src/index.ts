@@ -7,6 +7,8 @@
  *
  * Ka'bah coordinates sourced from verified GPS data.
  *
+ * SPORT: packages.md — @acamarata/qibla row
+ *
  * @module
  */
 
@@ -34,6 +36,12 @@ const DEG = Math.PI / 180;
  * @param lng - Observer longitude in decimal degrees (-180 to 180).
  * @returns Bearing in degrees clockwise from north (0 = N, 90 = E, 180 = S, 270 = W).
  * @throws {RangeError} If latitude is outside [-90, 90] or longitude outside [-180, 180].
+ *
+ * @example
+ * qiblaAngle(40.7128, -74.006);  // ~58.49 (New York)
+ * qiblaAngle(51.5074, -0.1278);  // ~119.0 (London)
+ *
+ * @see {@link https://github.com/acamarata/qibla/wiki/api/qiblaAngle} Wiki API page
  */
 export function qiblaAngle(lat: number, lng: number): number {
   if (lat < -90 || lat > 90) {
@@ -47,9 +55,7 @@ export function qiblaAngle(lat: number, lng: number): number {
   const φ2 = KAABA_LAT * DEG,
     λ2 = KAABA_LNG * DEG;
   const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
-  const x =
-    Math.cos(φ1) * Math.sin(φ2) -
-    Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
   return (Math.atan2(y, x) / DEG + 360) % 360;
 }
 
@@ -89,11 +95,7 @@ export function compassName(bearing: number): CompassName {
  * @returns Array of [latitude, longitude] pairs in degrees.
  * @throws {RangeError} If latitude is outside [-90, 90] or longitude outside [-180, 180].
  */
-export function qiblaGreatCircle(
-  lat: number,
-  lng: number,
-  steps = 120,
-): [number, number][] {
+export function qiblaGreatCircle(lat: number, lng: number, steps = 120): [number, number][] {
   if (lat < -90 || lat > 90) {
     throw new RangeError(`Latitude must be between -90 and 90, got ${lat}`);
   }
@@ -109,8 +111,7 @@ export function qiblaGreatCircle(
     2 *
     Math.asin(
       Math.sqrt(
-        Math.sin((φ2 - φ1) / 2) ** 2 +
-          Math.cos(φ1) * Math.cos(φ2) * Math.sin((λ2 - λ1) / 2) ** 2,
+        Math.sin((φ2 - φ1) / 2) ** 2 + Math.cos(φ1) * Math.cos(φ2) * Math.sin((λ2 - λ1) / 2) ** 2,
       ),
     );
 
@@ -124,10 +125,7 @@ export function qiblaGreatCircle(
     const x = A * Math.cos(φ1) * Math.cos(λ1) + B * Math.cos(φ2) * Math.cos(λ2);
     const y = A * Math.cos(φ1) * Math.sin(λ1) + B * Math.cos(φ2) * Math.sin(λ2);
     const z = A * Math.sin(φ1) + B * Math.sin(φ2);
-    points.push([
-      Math.atan2(z, Math.sqrt(x * x + y * y)) / DEG,
-      Math.atan2(y, x) / DEG,
-    ]);
+    points.push([Math.atan2(z, Math.sqrt(x * x + y * y)) / DEG, Math.atan2(y, x) / DEG]);
   }
   return points;
 }
@@ -141,16 +139,10 @@ export function qiblaGreatCircle(
  * @param lng2 - Second point longitude in decimal degrees.
  * @returns Distance in kilometers (spherical Earth approximation).
  */
-export function distanceKm(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number,
-): number {
+export function distanceKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const dLat = (lat2 - lat1) * DEG;
   const dLng = (lng2 - lng1) * DEG;
   const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLng / 2) ** 2;
+    Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLng / 2) ** 2;
   return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }

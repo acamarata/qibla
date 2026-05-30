@@ -3,6 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/%40acamarata%2Fqibla.svg)](https://www.npmjs.com/package/%40acamarata%2Fqibla)
 [![CI](https://github.com/acamarata/qibla/actions/workflows/ci.yml/badge.svg)](https://github.com/acamarata/qibla/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Wiki](https://img.shields.io/badge/docs-wiki-blue.svg)](https://github.com/acamarata/qibla/wiki)
 
 Qibla direction, great-circle path, and haversine distance. Pure math, zero dependencies.
 

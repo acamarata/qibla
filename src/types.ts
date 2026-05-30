@@ -8,16 +8,7 @@ export const KAABA_LNG = 39.82615;
 export const EARTH_RADIUS_KM = 6371;
 
 /** Eight-point compass abbreviations. */
-export const COMPASS_ABBR = [
-  "N",
-  "NE",
-  "E",
-  "SE",
-  "S",
-  "SW",
-  "W",
-  "NW",
-] as const;
+export const COMPASS_ABBR = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] as const;
 
 /** Eight-point compass full names. */
 export const COMPASS_NAMES = [
