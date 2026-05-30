@@ -1,0 +1,45 @@
+[**@acamarata/qibla v1.1.1**](../README.md)
+
+***
+
+[@acamarata/qibla](../README.md) / distanceKm
+
+# Function: distanceKm()
+
+> **distanceKm**(`lat1`, `lng1`, `lat2`, `lng2`): `number`
+
+Defined in: [index.ts:142](https://github.com/acamarata/qibla/blob/1546cd5c71a68dd73136e918b6f3f7f195fb5cc7/src/index.ts#L142)
+
+Haversine distance between two coordinate pairs.
+
+## Parameters
+
+### lat1
+
+`number`
+
+First point latitude in decimal degrees.
+
+### lng1
+
+`number`
+
+First point longitude in decimal degrees.
+
+### lat2
+
+`number`
+
+Second point latitude in decimal degrees.
+
+### lng2
+
+`number`
+
+Second point longitude in decimal degrees.
+
+## Returns
+
+`number`
+
+Distance in kilometers (spherical Earth approximation).
