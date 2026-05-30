@@ -53,8 +53,6 @@ export function qiblaAngle(lat: number, lng: number): number {
   return (Math.atan2(y, x) / DEG + 360) % 360;
 }
 
-
-
 /**
  * Eight-point compass abbreviation for a bearing.
  *
