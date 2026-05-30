@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-05-30
+
+### Changed
+- Add TSDoc comments with examples and wiki links to all exported functions
+- Add non-null assertions with explanatory comments for array index access
+- Formatting cleanup (inline multi-line function signatures)
+
 ## [1.1.1] - 2026-05-28
 
 ### Changed
