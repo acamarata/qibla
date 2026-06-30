@@ -150,10 +150,8 @@ export function distanceKm(lat1: number, lng1: number, lat2: number, lng2: numbe
 // ── Opt-in anonymous telemetry ────────────────────────────────────────────────
 // Off by default. Enable: ACAMARATA_TELEMETRY=1
 // What is sent + how to disable: https://github.com/acamarata/telemetry/blob/main/TELEMETRY.md
-import('@acamarata/telemetry')
-  .then(({ track }) =>
-    track('load', { package: '@acamarata/qibla', version: '1.1.2' }),
-  )
+import("@acamarata/telemetry")
+  .then(({ track }) => track("load", { package: "@acamarata/qibla", version: "1.1.2" }))
   .catch(() => {
     // telemetry not installed or disabled — that is fine
   });
