@@ -146,3 +146,14 @@ export function distanceKm(lat1: number, lng1: number, lat2: number, lng2: numbe
     Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLng / 2) ** 2;
   return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
+
+// ── Opt-in anonymous telemetry ────────────────────────────────────────────────
+// Off by default. Enable: ACAMARATA_TELEMETRY=1
+// What is sent + how to disable: https://github.com/acamarata/telemetry/blob/main/TELEMETRY.md
+import('@acamarata/telemetry')
+  .then(({ track }) =>
+    track('load', { package: '@acamarata/qibla', version: '1.1.2' }),
+  )
+  .catch(() => {
+    // telemetry not installed or disabled — that is fine
+  });

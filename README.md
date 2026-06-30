@@ -56,6 +56,11 @@ Full API reference, algorithm design, and spherical trigonometry notes: [GitHub 
 
 Ka'bah coordinates verified against published GPS surveys and cross-checked with satellite imagery. Forward azimuth formula follows standard spherical trigonometry as used in aviation and geodesy.
 
+## Telemetry
+
+This package supports opt-in anonymous usage telemetry — off by default.
+Enable: `ACAMARATA_TELEMETRY=1`. See [TELEMETRY.md](./TELEMETRY.md) for what is sent and how to disable.
+
 ## License
 
 [MIT](LICENSE)
