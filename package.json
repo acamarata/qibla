@@ -85,7 +85,8 @@
     "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1"
+    "typescript-eslint": "^8.32.1",
+    "@acamarata/telemetry": "^0.1.0"
   },
   "type": "module",
   "packageManager": "pnpm@10.11.1",
