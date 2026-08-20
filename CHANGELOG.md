@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Polar-circle, geographic-pole and global-sweep test coverage (37x25 grid asserting a finite in-range bearing everywhere)
 
 ### Note
-- 1.1.1 and 1.1.2 were tagged in the repository but never published to npm, so this release also carries their changes: the exports map flattened to the ADR-015 standard (`import`/`require`/`types` at top level, plus `./package.json`), and TSDoc comments with examples on every exported function.
+- This package publishes as `@acamarata/qibla`. The unscoped `qibla` on npm is an unrelated package by a different author; do not compare versions against it.
 
 
 ## [1.1.2] - 2026-05-30
