@@ -182,3 +182,48 @@ describe("distanceKm", () => {
     assert.ok(distanceKm(0, 0, 10, 10) > 0);
   });
 });
+
+// ---------------------------------------------------------------------------
+// PKG-23 — polar and degenerate-geometry coverage.
+//
+// Qibla is a great-circle bearing, so it is defined everywhere a position is defined —
+// including inside the polar circles, where the prayer-time engines lose sunrise. The
+// genuinely awkward inputs are the poles themselves (longitude is undefined there) and
+// the Kaaba and its exact antipode (bearing is undefined or arbitrary).
+// ---------------------------------------------------------------------------
+describe('PKG-23 — polar and degenerate inputs', () => {
+  const finiteBearing = (b) => Number.isFinite(b) && b >= 0 && b < 360;
+
+  it('polar-circle cities produce a usable bearing', () => {
+    for (const [name, lat, lng] of [
+      ['Longyearbyen', 78.22334, 15.64689],
+      ['Tromso', 69.6492, 18.9553],
+      ['Murmansk', 68.9585, 33.0827],
+      ['McMurdo', -77.8419, 166.6863],
+    ]) {
+      const b = qiblaAngle(lat, lng);
+      assert.ok(finiteBearing(b), `${name}: bearing ${b}`);
+    }
+  });
+
+  it('the geographic poles do not produce NaN', () => {
+    for (const lat of [90, -90]) {
+      const b = qiblaAngle(lat, 0);
+      assert.ok(finiteBearing(b), `pole ${lat}: bearing ${b}`);
+    }
+  });
+
+  it('a global sweep never yields NaN or an out-of-range bearing', () => {
+    for (let lat = -90; lat <= 90; lat += 5) {
+      for (let lng = -180; lng <= 180; lng += 15) {
+        const b = qiblaAngle(lat, lng);
+        assert.ok(finiteBearing(b), `lat ${lat} lng ${lng}: ${b}`);
+      }
+    }
+  });
+
+  it('from due north of the Kaaba the bearing points south', () => {
+    const b = qiblaAngle(21.4225 + 10, 39.8262);
+    assert.ok(Math.abs(b - 180) < 0.5, `expected ~180, got ${b}`);
+  });
+});
