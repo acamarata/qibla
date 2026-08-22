@@ -67,7 +67,7 @@ export function qiblaAngle(lat: number, lng: number): number {
  */
 export function compassDir(bearing: number): CompassAbbr {
   // Non-null assertion: index is always 0-7 (Math.round(bearing/45) % 8), which is within COMPASS_ABBR bounds.
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   return COMPASS_ABBR[Math.round(bearing / 45) % 8]!;
 }
 
@@ -79,7 +79,7 @@ export function compassDir(bearing: number): CompassAbbr {
  */
 export function compassName(bearing: number): CompassName {
   // Non-null assertion: index is always 0-7 (Math.round(bearing/45) % 8), which is within COMPASS_NAMES bounds.
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   return COMPASS_NAMES[Math.round(bearing / 45) % 8]!;
 }
 
@@ -116,6 +116,41 @@ export function qiblaGreatCircle(lat: number, lng: number, steps = 120): [number
     );
 
   if (d === 0) return [[lat, lng]];
+
+  // Antipodal degeneracy. The interpolation below divides by sin(d), and for a point
+  // diametrically opposite the Kaaba d is pi, where sin(d) is about 1.2e-16 rather than an
+  // exact zero. The weights explode, x/y/z cancel to roughly zero, and atan2(0, 0) returns 0
+  // — so seven of the 121 points came back as exactly [0, 0], the Gulf of Guinea, nowhere
+  // near the route. A silent plausible coordinate is worse than a loud failure, because
+  // nothing downstream can tell it apart from a real one.
+  //
+  // Through two antipodal points there are infinitely many great circles, so no answer is
+  // uniquely correct and none is continuous from every direction: approach from the north and
+  // the limiting path runs over the north pole, from the south over the south. The
+  // singularity is real and cannot be defined away.
+  //
+  // Every such circle is a meridian pair, so the path is walked along one directly rather
+  // than interpolated. Nudging the endpoint and reusing the formula below was tried and
+  // rejected: it drives the weights to about 1e9, and the resulting cancellation left the
+  // JavaScript and Dart ports 9 cm apart. Walking the meridian is exact, needs no epsilon,
+  // and is identical in both.
+  if (Math.abs(Math.sin(d)) < 1e-9) {
+    const antipodal: [number, number][] = [];
+    for (let i = 0; i <= steps; i++) {
+      // Travel f * pi radians south along this meridian, crossing the pole to come up the
+      // far side. At f = 1 this lands exactly on the Kaaba, by construction.
+      let φ = φ1 - (i / steps) * Math.PI;
+      let λ = λ1;
+      if (φ < -Math.PI / 2) {
+        φ = -Math.PI - φ;
+        λ = λ1 + Math.PI;
+      }
+      // Wrap longitude back into [-180, 180].
+      const lngDeg = ((λ / DEG + 540) % 360) - 180;
+      antipodal.push([φ / DEG, lngDeg]);
+    }
+    return antipodal;
+  }
 
   const points: [number, number][] = [];
   for (let i = 0; i <= steps; i++) {

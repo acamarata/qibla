@@ -1,3 +1,21 @@
+## 1.3.0 — 2026-08-22
+
+### Fixed
+- **`qiblaGreatCircle` no longer emits collapsed `[0, 0]` points for a location diametrically opposite the Kaaba.** The interpolation divides by `sin(d)`, and at the antipode `d` is pi, where `sin(d)` is about 1.2e-16 rather than an exact zero. The weights exploded, the Cartesian components cancelled, and `atan2(0, 0)` returned 0 — so **seven of the 121 points came back as exactly `[0, 0]`**, the Gulf of Guinea, nowhere near the route. A silent, plausible-looking coordinate that nothing downstream could distinguish from a real one.
+
+  Antipodal points are joined by meridians, so the path is now walked along one directly instead of interpolated. It is exact at both endpoints, evenly spaced, and needs no epsilon.
+
+  Found by the new cross-language parity fixture, which is exactly the class of defect it exists to catch.
+
+### Added
+- `tool/generate-parity-fixture.mjs`, which writes the fixture asserted by `qibla_dart`'s `test/parity_test.dart`. Twenty locations including both poles, both sides of the dateline, the Kaaba, its antipode, and points due north and due south of it. The two ports are now bit-identical on all of them.
+- Regression tests for the antipodal path: no collapsed points, every point finite and in range, exact endpoints, and no jump between consecutive points.
+
+### Notes
+Minor rather than patch: this changes the output of `qiblaGreatCircle` for antipodal input. Nothing sane can depend on the previous `[0, 0]` values, but a version number that says "behaviour moved" is worth more than one that says "nothing to see".
+
+An earlier attempt nudged the endpoint by an epsilon and reused the interpolation. It was rejected: that drives the weights to about 1e9, and the resulting cancellation left the JavaScript and Dart ports 9 cm apart. The meridian walk has no such sensitivity.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

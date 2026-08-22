@@ -227,3 +227,60 @@ describe('PKG-23 — polar and degenerate inputs', () => {
     assert.ok(Math.abs(b - 180) < 0.5, `expected ~180, got ${b}`);
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Antipodal great circle. Found 2026-08-22 by the cross-language parity fixture:
+// for a point diametrically opposite the Kaaba, sin(d) is 1.2e-16 rather than
+// zero, so the slerp weights exploded, x/y/z cancelled, and atan2(0, 0) returned
+// 0 — seven of the 121 points came back as exactly [0, 0], the Gulf of Guinea.
+// A silent plausible coordinate, which nothing downstream could distinguish
+// from a real one.
+// ─────────────────────────────────────────────────────────────────────────────
+describe('qiblaGreatCircle — antipodal point', () => {
+  const antiLat = -KAABA_LAT;
+  const antiLng = KAABA_LNG - 180;
+
+  it('emits no collapsed [0, 0] points', () => {
+    const path = qiblaGreatCircle(antiLat, antiLng);
+    const collapsed = path.filter(([la, ln]) => la === 0 && ln === 0);
+    assert.equal(collapsed.length, 0, `${collapsed.length} points collapsed to [0, 0]`);
+  });
+
+  it('every point is finite and in range', () => {
+    for (const [la, ln] of qiblaGreatCircle(antiLat, antiLng)) {
+      assert.ok(isFinite(la) && la >= -90 && la <= 90, `latitude ${la}`);
+      assert.ok(isFinite(ln) && ln >= -180 && ln <= 180, `longitude ${ln}`);
+    }
+  });
+
+  it('starts at the observer and ends on the Kaaba', () => {
+    const path = qiblaGreatCircle(antiLat, antiLng);
+    const near = (a, b, label) =>
+      assert.ok(Math.abs(a - b) < 1e-9, `${label}: expected ${b}, got ${a}`);
+    near(path[0][0], antiLat, 'start latitude');
+    near(path[0][1], antiLng, 'start longitude');
+    near(path[path.length - 1][0], KAABA_LAT, 'end latitude');
+    near(path[path.length - 1][1], KAABA_LNG, 'end longitude');
+  });
+
+  it('is evenly spaced, with no jump between consecutive points', () => {
+    // The collapse showed up as huge jumps in and out of [0, 0]. Half of Earth's
+    // circumference over 120 steps is about 167 km per step.
+    const path = qiblaGreatCircle(antiLat, antiLng);
+    let maxStep = 0;
+    for (let i = 1; i < path.length; i++) {
+      const step = distanceKm(path[i - 1][0], path[i - 1][1], path[i][0], path[i][1]);
+      if (step > maxStep) maxStep = step;
+    }
+    assert.ok(maxStep < 200, `largest step was ${maxStep.toFixed(1)} km, expected about 167`);
+  });
+
+  it('respects a custom step count', () => {
+    assert.equal(qiblaGreatCircle(antiLat, antiLng, 10).length, 11);
+  });
+
+  it('still returns a single point when the observer is at the Kaaba', () => {
+    // The other degenerate case, guarded separately and unaffected by this fix.
+    assert.deepEqual(qiblaGreatCircle(KAABA_LAT, KAABA_LNG), [[KAABA_LAT, KAABA_LNG]]);
+  });
+});
